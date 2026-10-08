@@ -1,24 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PhotoBooth } from "@/components/PhotoBooth";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Retro Photo Booth — 4-Shot Webcam Strips" },
+      { name: "description", content: "Snap four webcam photos with vintage filters and download a classic 2x6 photo strip." },
+      { property: "og:title", content: "Retro Photo Booth" },
+      { property: "og:description", content: "Snap four webcam photos with vintage filters and download a classic 2x6 photo strip." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: PhotoBooth,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
