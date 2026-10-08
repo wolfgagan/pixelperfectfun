@@ -53,7 +53,7 @@ export function PhotoBooth() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [camState, setCamState] = useState<"loading" | "ready" | "denied">("loading");
-  const [filter, setFilter] = useState(FILTERS[0]);
+  const [filter, setFilter] = useState(FILTERS[0]!);
   const [shots, setShots] = useState<string[]>([]);
   const [count, setCount] = useState<string | null>(null);
   const [flash, setFlash] = useState(false);
@@ -287,7 +287,7 @@ const STRIP_H = 3600;
 
 function StripEditor({ shots, onRetake }: { shots: string[]; onRetake: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [frame, setFrame] = useState(FRAMES[0]);
+  const [frame, setFrame] = useState(FRAMES[0]!);
   const [caption, setCaption] = useState("MYSURU MEMORIES • 2026");
   const [grain, setGrain] = useState(true);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
@@ -349,9 +349,9 @@ function StripEditor({ shots, onRetake }: { shots: string[]; onRetake: () => voi
       const d = data.data;
       for (let p = 0; p < d.length; p += 4) {
         const n = (Math.random() - 0.5) * 38;
-        d[p] += n;
-        d[p + 1] += n;
-        d[p + 2] += n;
+        d[p] = d[p]! + n;
+        d[p + 1] = d[p + 1]! + n;
+        d[p + 2] = d[p + 2]! + n;
       }
       ctx.putImageData(data, 0, 0);
     }
